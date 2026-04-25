@@ -1,0 +1,22 @@
+services:
+  amp-bot:
+    build: .
+    container_name: amp-bot
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - caddy-proxy
+    volumes:
+      - ./amp-bot.py:/app/amp-bot.py
+    ports:
+      - "5000:5000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  caddy-proxy:
+    external: true
